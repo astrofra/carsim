@@ -98,7 +98,7 @@
 				"zfar": 1000.0,
 				"znear": 0.009999999776482582
 			},
-			"current_camera": 0,
+			"current_camera": 7,
 			"front": [
 				1.0,
 				0.0,
