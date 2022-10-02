@@ -1340,19 +1340,18 @@
 					"textures": [
 						{
 							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Grill_Color.tga",
 							"stage": 0
 						},
 						{
 							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Grill_Normal.png",
 							"stage": 2
 						},
 						{
 							"name": "uOcclusionRoughnessMetalnessMap",
+							"path": "vehicles/generic_vehicle/Car03_Grill_ORM.png",
 							"stage": 1
-						},
-						{
-							"name": "uSelfMap",
-							"stage": 4
 						}
 					],
 					"values": [
@@ -1360,9 +1359,9 @@
 							"name": "uBaseOpacityColor",
 							"type": "vec4",
 							"value": [
-								1.0,
-								0.0,
-								0.8860759735107422,
+								0.2742616534233093,
+								0.2742616534233093,
+								0.2742616534233093,
 								1.0
 							]
 						},
@@ -3852,7 +3851,7 @@
 			],
 			"rot": [
 				-52.892276763916016,
-				-24.40991973876953,
+				-24.4099178314209,
 				1.8647478818893433
 			],
 			"scl": [
@@ -4013,8 +4012,8 @@
 				0.5265997052192688
 			],
 			"rot": [
-				-69.903564453125,
-				-2.7028225304093212e-05,
+				-69.90355682373047,
+				-2.702822348510381e-05,
 				180.0
 			],
 			"scl": [
@@ -4031,7 +4030,7 @@
 				2.2901885509490967
 			],
 			"rot": [
-				53.091880798339844,
+				53.09187698364258,
 				124.34111785888672,
 				130.51171875
 			],
