@@ -28,7 +28,7 @@
 			255
 		],
 		"brdf_map": "core/pbr/brdf.dds",
-		"current_camera": 11,
+		"current_camera": 10,
 		"fog_color": [
 			255,
 			255,
@@ -114,7 +114,7 @@
 			],
 			"disabled": false,
 			"idx": 1,
-			"name": "thrust"
+			"name": "steering_wheel_pivot"
 		},
 		{
 			"components": [
@@ -126,79 +126,79 @@
 			],
 			"disabled": false,
 			"idx": 2,
-			"name": "wheel_0"
+			"name": "steering_wheel"
 		},
 		{
 			"components": [
 				3,
+				4294967295,
+				4294967295,
+				4294967295,
+				4294967295
+			],
+			"disabled": false,
+			"idx": 3,
+			"name": "thrust"
+		},
+		{
+			"components": [
+				4,
 				4294967295,
 				2,
 				4294967295,
 				4294967295
 			],
 			"disabled": false,
-			"idx": 3,
-			"name": "wheel_1"
+			"idx": 4,
+			"name": "wheel_0"
 		},
 		{
 			"components": [
-				4,
+				5,
 				4294967295,
 				3,
 				4294967295,
 				4294967295
 			],
 			"disabled": false,
-			"idx": 4,
-			"name": "wheel_2"
+			"idx": 5,
+			"name": "wheel_1"
 		},
 		{
 			"components": [
-				5,
+				6,
 				4294967295,
 				4,
 				4294967295,
 				4294967295
 			],
 			"disabled": false,
-			"idx": 5,
-			"name": "wheel_3"
+			"idx": 6,
+			"name": "wheel_2"
 		},
 		{
 			"components": [
-				6,
+				7,
 				4294967295,
 				5,
 				4294967295,
 				4294967295
 			],
 			"disabled": false,
-			"idx": 6,
-			"name": "wiper_0"
+			"idx": 7,
+			"name": "wheel_3"
 		},
 		{
 			"components": [
-				7,
+				8,
 				4294967295,
 				6,
 				4294967295,
 				4294967295
 			],
 			"disabled": false,
-			"idx": 7,
-			"name": "wiper_1"
-		},
-		{
-			"components": [
-				8,
-				4294967295,
-				4294967295,
-				4294967295,
-				4294967295
-			],
-			"disabled": false,
 			"idx": 8,
-			"name": "steering_wheel_pivot"
+			"name": "wiper_0"
 		},
 		{
 			"components": [
@@ -210,19 +210,7 @@
 			],
 			"disabled": false,
 			"idx": 9,
-			"name": "steering_wheel"
-		},
-		{
-			"components": [
-				10,
-				4294967295,
-				4294967295,
-				0,
-				4294967295
-			],
-			"disabled": false,
-			"idx": 10,
-			"name": "Light"
+			"name": "wiper_1"
 		},
 		{
 			"components": [
@@ -233,8 +221,20 @@
 				4294967295
 			],
 			"disabled": false,
-			"idx": 11,
+			"idx": 10,
 			"name": "CameraInterior"
+		},
+		{
+			"components": [
+				10,
+				4294967295,
+				4294967295,
+				0,
+				4294967295
+			],
+			"disabled": false,
+			"idx": 11,
+			"name": "Light"
 		}
 	],
 	"objects": [
@@ -466,9 +466,9 @@
 							"name": "uBaseOpacityColor",
 							"type": "vec4",
 							"value": [
-								0.17299580574035645,
-								0.17299580574035645,
-								0.17299580574035645,
+								0.2742616534233093,
+								0.2742616534233093,
+								0.2742616534233093,
 								1.0
 							]
 						},
@@ -545,836 +545,6 @@
 				}
 			],
 			"name": "vehicles/generic_vehicle/car_body_47.geo"
-		},
-		{
-			"bones": [],
-			"material_infos": [
-				{
-					"name": "Car03_Wheel_Mat01"
-				}
-			],
-			"materials": [
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_Albedo01.png",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_Normal.png",
-							"stage": 2
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_ORM.png",
-							"stage": 1
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.5882353186607361,
-								0.5882353186607361,
-								0.5882353186607361,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				}
-			],
-			"name": "vehicles/generic_vehicle/wheel_0_49.geo"
-		},
-		{
-			"bones": [],
-			"material_infos": [
-				{
-					"name": "Car03_Wheel_Mat01"
-				}
-			],
-			"materials": [
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_Albedo01.png",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_Normal.png",
-							"stage": 2
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_ORM.png",
-							"stage": 1
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.5882353186607361,
-								0.5882353186607361,
-								0.5882353186607361,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				}
-			],
-			"name": "vehicles/generic_vehicle/wheel_1_50.geo"
-		},
-		{
-			"bones": [],
-			"material_infos": [
-				{
-					"name": "Car03_Wheel_Mat01"
-				}
-			],
-			"materials": [
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_Albedo01.png",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_Normal.png",
-							"stage": 2
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_ORM.png",
-							"stage": 1
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.5882353186607361,
-								0.5882353186607361,
-								0.5882353186607361,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				}
-			],
-			"name": "vehicles/generic_vehicle/wheel_2_51.geo"
-		},
-		{
-			"bones": [],
-			"material_infos": [
-				{
-					"name": "Car03_Wheel_Mat01"
-				}
-			],
-			"materials": [
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_Albedo01.png",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_Normal.png",
-							"stage": 2
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessMap",
-							"path": "vehicles/generic_vehicle/Car03_Wheel_ORM.png",
-							"stage": 1
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.5882353186607361,
-								0.5882353186607361,
-								0.5882353186607361,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				}
-			],
-			"name": "vehicles/generic_vehicle/wheel_3_52.geo"
-		},
-		{
-			"bones": [],
-			"material_infos": [
-				{
-					"name": "Car03_Body_Mat01"
-				},
-				{
-					"name": "Car03_Parts_Mat01"
-				},
-				{
-					"name": "Car03_Interior_Mat01"
-				},
-				{
-					"name": "Car03_Grill_Mat01"
-				},
-				{
-					"name": "Car03_Glass_Mat"
-				}
-			],
-			"materials": [
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.7372549176216125,
-								0.7372549176216125,
-								0.7372549176216125,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				},
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"stage": 2
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessMap",
-							"stage": 1
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.1350211501121521,
-								0.1350211501121521,
-								0.1350211501121521,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								0.01600000075995922,
-								0.8700000047683716,
-								0.25,
-								0.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				},
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"path": "vehicles/generic_vehicle/Car03_Interior_Albedo01.png",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"path": "vehicles/generic_vehicle/Car03_Interior_Normal.tga",
-							"stage": 2
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.6039215922355652,
-								0.6039215922355652,
-								0.6039215922355652,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				},
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"path": "vehicles/generic_vehicle/Car03_Grill_AO.tga",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"path": "vehicles/generic_vehicle/Car03_Grill_Normal.tga",
-							"stage": 2
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.007843137718737125,
-								0.007843137718737125,
-								0.007843137718737125,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				},
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.1411764770746231,
-								0.1764705926179886,
-								0.24705883860588074,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				}
-			],
-			"name": "vehicles/generic_vehicle/wiper_0_53.geo"
-		},
-		{
-			"bones": [],
-			"material_infos": [
-				{
-					"name": "Car03_Body_Mat01"
-				},
-				{
-					"name": "Car03_Parts_Mat01"
-				},
-				{
-					"name": "Car03_Interior_Mat01"
-				},
-				{
-					"name": "Car03_Grill_Mat01"
-				},
-				{
-					"name": "Car03_Glass_Mat"
-				}
-			],
-			"materials": [
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.7372549176216125,
-								0.7372549176216125,
-								0.7372549176216125,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				},
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"stage": 2
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessMap",
-							"stage": 1
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.1350211501121521,
-								0.1350211501121521,
-								0.1350211501121521,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								0.01600000075995922,
-								0.8700000047683716,
-								0.25,
-								0.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				},
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"path": "vehicles/generic_vehicle/Car03_Interior_Albedo01.png",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"path": "vehicles/generic_vehicle/Car03_Interior_Normal.tga",
-							"stage": 2
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.6039215922355652,
-								0.6039215922355652,
-								0.6039215922355652,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				},
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"textures": [
-						{
-							"name": "uBaseOpacityMap",
-							"path": "vehicles/generic_vehicle/Car03_Grill_AO.tga",
-							"stage": 0
-						},
-						{
-							"name": "uNormalMap",
-							"path": "vehicles/generic_vehicle/Car03_Grill_Normal.tga",
-							"stage": 2
-						}
-					],
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.007843137718737125,
-								0.007843137718737125,
-								0.007843137718737125,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				},
-				{
-					"blend_mode": "opaque",
-					"depth_test": "less",
-					"face_culling": "cw",
-					"flags": [],
-					"program": "core/shader/pbr.hps",
-					"values": [
-						{
-							"name": "uBaseOpacityColor",
-							"type": "vec4",
-							"value": [
-								0.1411764770746231,
-								0.1764705926179886,
-								0.24705883860588074,
-								1.0
-							]
-						},
-						{
-							"name": "uOcclusionRoughnessMetalnessColor",
-							"type": "vec4",
-							"value": [
-								1.0,
-								0.5,
-								0.25,
-								0.0
-							]
-						},
-						{
-							"name": "uSelfColor",
-							"type": "vec4",
-							"value": [
-								0.0,
-								0.0,
-								0.0,
-								-1.0
-							]
-						}
-					],
-					"write_a": true,
-					"write_b": true,
-					"write_g": true,
-					"write_r": true,
-					"write_z": true
-				}
-			],
-			"name": "vehicles/generic_vehicle/wiper_1_54.geo"
 		},
 		{
 			"bones": [],
@@ -1663,7 +833,863 @@
 					"write_z": true
 				}
 			],
-			"name": "vehicles/generic_vehicle/steering_wheel_56.geo"
+			"name": "vehicles/generic_vehicle/steering_wheel_49.geo"
+		},
+		{
+			"bones": [],
+			"material_infos": [
+				{
+					"name": "Car03_Wheel_Mat01"
+				}
+			],
+			"materials": [
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_Albedo01.png",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_Normal.png",
+							"stage": 2
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_ORM.png",
+							"stage": 1
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.5882353186607361,
+								0.5882353186607361,
+								0.5882353186607361,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				}
+			],
+			"name": "vehicles/generic_vehicle/wheel_0_51.geo"
+		},
+		{
+			"bones": [],
+			"material_infos": [
+				{
+					"name": "Car03_Wheel_Mat01"
+				}
+			],
+			"materials": [
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_Albedo01.png",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_Normal.png",
+							"stage": 2
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_ORM.png",
+							"stage": 1
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.5882353186607361,
+								0.5882353186607361,
+								0.5882353186607361,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				}
+			],
+			"name": "vehicles/generic_vehicle/wheel_1_52.geo"
+		},
+		{
+			"bones": [],
+			"material_infos": [
+				{
+					"name": "Car03_Wheel_Mat01"
+				}
+			],
+			"materials": [
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_Albedo01.png",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_Normal.png",
+							"stage": 2
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_ORM.png",
+							"stage": 1
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.5882353186607361,
+								0.5882353186607361,
+								0.5882353186607361,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				}
+			],
+			"name": "vehicles/generic_vehicle/wheel_2_53.geo"
+		},
+		{
+			"bones": [],
+			"material_infos": [
+				{
+					"name": "Car03_Wheel_Mat01"
+				}
+			],
+			"materials": [
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_Albedo01.png",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_Normal.png",
+							"stage": 2
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessMap",
+							"path": "vehicles/generic_vehicle/Car03_Wheel_ORM.png",
+							"stage": 1
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.5882353186607361,
+								0.5882353186607361,
+								0.5882353186607361,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				}
+			],
+			"name": "vehicles/generic_vehicle/wheel_3_54.geo"
+		},
+		{
+			"bones": [],
+			"material_infos": [
+				{
+					"name": "Car03_Body_Mat01"
+				},
+				{
+					"name": "Car03_Parts_Mat01"
+				},
+				{
+					"name": "Car03_Interior_Mat01"
+				},
+				{
+					"name": "Car03_Grill_Mat01"
+				},
+				{
+					"name": "Car03_Glass_Mat"
+				}
+			],
+			"materials": [
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.7372549176216125,
+								0.7372549176216125,
+								0.7372549176216125,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				},
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Parts_Albedo01.png",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Parts_Normal.tga",
+							"stage": 2
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessMap",
+							"path": "vehicles/generic_vehicle/Car03_Parts_Albedo01.png",
+							"stage": 1
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.43529415130615234,
+								0.43529415130615234,
+								0.43529415130615234,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				},
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Interior_Albedo01.png",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Interior_Normal.tga",
+							"stage": 2
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.6039215922355652,
+								0.6039215922355652,
+								0.6039215922355652,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				},
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Grill_AO.tga",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Grill_Normal.tga",
+							"stage": 2
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.007843137718737125,
+								0.007843137718737125,
+								0.007843137718737125,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				},
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.1411764770746231,
+								0.1764705926179886,
+								0.24705883860588074,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				}
+			],
+			"name": "vehicles/generic_vehicle/wiper_0_55.geo"
+		},
+		{
+			"bones": [],
+			"material_infos": [
+				{
+					"name": "Car03_Body_Mat01"
+				},
+				{
+					"name": "Car03_Parts_Mat01"
+				},
+				{
+					"name": "Car03_Interior_Mat01"
+				},
+				{
+					"name": "Car03_Grill_Mat01"
+				},
+				{
+					"name": "Car03_Glass_Mat"
+				}
+			],
+			"materials": [
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.7372549176216125,
+								0.7372549176216125,
+								0.7372549176216125,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				},
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Parts_Albedo01.png",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Parts_Normal.tga",
+							"stage": 2
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessMap",
+							"path": "vehicles/generic_vehicle/Car03_Parts_Albedo01.png",
+							"stage": 1
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.43529415130615234,
+								0.43529415130615234,
+								0.43529415130615234,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				},
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Interior_Albedo01.png",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Interior_Normal.tga",
+							"stage": 2
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.6039215922355652,
+								0.6039215922355652,
+								0.6039215922355652,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				},
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"textures": [
+						{
+							"name": "uBaseOpacityMap",
+							"path": "vehicles/generic_vehicle/Car03_Grill_AO.tga",
+							"stage": 0
+						},
+						{
+							"name": "uNormalMap",
+							"path": "vehicles/generic_vehicle/Car03_Grill_Normal.tga",
+							"stage": 2
+						}
+					],
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.007843137718737125,
+								0.007843137718737125,
+								0.007843137718737125,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				},
+				{
+					"blend_mode": "opaque",
+					"depth_test": "less",
+					"face_culling": "cw",
+					"flags": [],
+					"program": "core/shader/pbr.hps",
+					"values": [
+						{
+							"name": "uBaseOpacityColor",
+							"type": "vec4",
+							"value": [
+								0.1411764770746231,
+								0.1764705926179886,
+								0.24705883860588074,
+								1.0
+							]
+						},
+						{
+							"name": "uOcclusionRoughnessMetalnessColor",
+							"type": "vec4",
+							"value": [
+								1.0,
+								0.5,
+								0.25,
+								0.0
+							]
+						},
+						{
+							"name": "uSelfColor",
+							"type": "vec4",
+							"value": [
+								0.0,
+								0.0,
+								0.0,
+								-1.0
+							]
+						}
+					],
+					"write_a": true,
+					"write_b": true,
+					"write_g": true,
+					"write_r": true,
+					"write_z": true
+				}
+			],
+			"name": "vehicles/generic_vehicle/wiper_1_56.geo"
 		}
 	],
 	"transforms": [
@@ -1671,8 +1697,8 @@
 			"parent": null,
 			"pos": [
 				0.0,
-				0.0,
-				0.0
+				0.31996679306030273,
+				-1.3986192648474116e-08
 			],
 			"rot": [
 				-7.0167078561561656e-15,
@@ -1688,8 +1714,44 @@
 		{
 			"parent": 0,
 			"pos": [
+				-0.39944934844970703,
+				0.6040751934051514,
+				0.526599645614624
+			],
+			"rot": [
+				69.99999237060547,
+				180.0,
+				180.0
+			],
+			"scl": [
+				1.0,
+				0.9999999403953552,
+				0.9999999403953552
+			]
+		},
+		{
+			"parent": 1,
+			"pos": [
 				0.0,
-				0.346000075340271,
+				0.0,
+				0.0
+			],
+			"rot": [
+				-1.2195683717727661,
+				-180.0,
+				-2.2316848117043264e-05
+			],
+			"scl": [
+				1.0,
+				1.0000004768371582,
+				1.0000004768371582
+			]
+		},
+		{
+			"parent": 0,
+			"pos": [
+				0.0,
+				0.02603328227996826,
 				-1.1022948026657104
 			],
 			"rot": [
@@ -1707,7 +1769,7 @@
 			"parent": 0,
 			"pos": [
 				-0.7600023746490479,
-				0.3460000455379486,
+				0.026033222675323486,
 				1.549896478652954
 			],
 			"rot": [
@@ -1725,7 +1787,7 @@
 			"parent": 0,
 			"pos": [
 				0.7600018978118896,
-				0.3459998071193695,
+				0.026032984256744385,
 				1.549896478652954
 			],
 			"rot": [
@@ -1743,7 +1805,7 @@
 			"parent": 0,
 			"pos": [
 				0.7600023746490479,
-				0.34600013494491577,
+				0.026033341884613037,
 				-1.102294683456421
 			],
 			"rot": [
@@ -1761,7 +1823,7 @@
 			"parent": 0,
 			"pos": [
 				-0.7600018978118896,
-				0.34600013494491577,
+				0.026033341884613037,
 				-1.102295160293579
 			],
 			"rot": [
@@ -1779,72 +1841,36 @@
 			"parent": 0,
 			"pos": [
 				-0.641943633556366,
-				0.9965407252311707,
+				0.6765738725662231,
 				1.1661123037338257
 			],
 			"rot": [
-				-52.892276763916016,
+				-52.89225769042969,
 				-24.409929275512695,
 				1.8647468090057373
 			],
 			"scl": [
-				1.0000003576278687,
+				1.0000004768371582,
 				0.9999995231628418,
-				0.9999998807907104
+				0.9999998211860657
 			]
 		},
 		{
 			"parent": 0,
 			"pos": [
 				-0.11100274324417114,
-				1.0026808977127075,
+				0.6827141046524048,
 				1.2891757488250732
 			],
 			"rot": [
 				-59.218345642089844,
-				3.5092735290527344,
-				-20.3892822265625
+				3.5092766284942627,
+				-20.389284133911133
 			],
 			"scl": [
 				1.0,
 				0.9999995231628418,
 				0.9999997615814209
-			]
-		},
-		{
-			"parent": 0,
-			"pos": [
-				-0.39944934844970703,
-				0.9240419864654541,
-				0.526599645614624
-			],
-			"rot": [
-				70.77177429199219,
-				-179.99993896484375,
-				-179.99993896484375
-			],
-			"scl": [
-				0.9999998807907104,
-				0.9999998807907104,
-				1.0
-			]
-		},
-		{
-			"parent": 8,
-			"pos": [
-				0.0,
-				0.0,
-				0.0
-			],
-			"rot": [
-				-1.2195664644241333,
-				-180.0,
-				-2.231684629805386e-05
-			],
-			"scl": [
-				1.0,
-				1.0000004768371582,
-				1.0000004768371582
 			]
 		},
 		{
@@ -1855,7 +1881,7 @@
 				2.2901885509490967
 			],
 			"rot": [
-				53.09186553955078,
+				53.091861724853516,
 				124.34111785888672,
 				130.51171875
 			],
