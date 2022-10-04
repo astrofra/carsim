@@ -1,4 +1,5 @@
 hg = require("harfang")
+require("utils")
 
 function CarModelCreate(name, instance_node_name, scene, scene_physics, resources, start_position, start_rotation)
     local o = {}
@@ -49,7 +50,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
 
     -- Constants
     
-    o.mass = 1000
+    o.mass = NodeGetPhysicsMass(o.root_node)
     o.spring_friction = 2500
     o.tires_reaction = 25
     o.tires_adhesion = 1500
