@@ -55,7 +55,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     o.spring_friction = 2500
     o.tires_reaction = 25
     o.tires_adhesion = 5000
-    o.steering_angle_max = 45
+    o.steering_angle_max = 25
     o.thrust_power = 400000 -- Acceleration
     o.brakes_power = 1000000
     o.turn_speed = 150
