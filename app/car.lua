@@ -54,7 +54,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     o.mass = NodeGetPhysicsMass(o.root_node)
     o.spring_friction = 2500
     o.tires_reaction = 25
-    o.tires_adhesion = 1500
+    o.tires_adhesion = 5000
     o.steering_angle_max = 45
     o.thrust_power = 400000 -- Acceleration
     o.brakes_power = 1000000
