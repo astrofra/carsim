@@ -64,18 +64,18 @@ function CreateRCCar(name, instance_node_name, scene, scene_physics, resources, 
    
     -- Setup physics
 
-    o.chassis_rigid = scene:CreateRigidBody()
-    o.chassis_rigid:SetType(hg.RBT_Dynamic)
-    o.chassis_node:SetRigidBody(o.chassis_rigid)
-    colbox = scene:CreateCollision()
-    colbox:SetType(hg.CT_Cube)
-    colbox:SetSize(hg.Vec3(1, 0.5, 3))
-    colbox:SetMass(o.mass)
-    colbox:SetLocalTransform(hg.TransformationMat4(hg.Vec3(0, 0, 0), hg.Deg3(0, 0, 0)))
-    o.chassis_node:SetCollision(1,colbox)
-    o.chassis_rigid:SetAngularDamping(0)
-    o.chassis_rigid:SetLinearDamping(0)
-    scene_physics:NodeCreatePhysicsFromAssets(o.chassis_node)
+    -- o.chassis_rigid = scene:CreateRigidBody()
+    -- o.chassis_rigid:SetType(hg.RBT_Dynamic)
+    -- o.chassis_node:SetRigidBody(o.chassis_rigid)
+    -- colbox = scene:CreateCollision()
+    -- colbox:SetType(hg.CT_Cube)
+    -- colbox:SetSize(hg.Vec3(1, 0.5, 3))
+    -- colbox:SetMass(o.mass)
+    -- colbox:SetLocalTransform(hg.TransformationMat4(hg.Vec3(0, 0, 0), hg.Deg3(0, 0, 0)))
+    -- o.chassis_node:SetCollision(1,colbox)
+    -- o.chassis_rigid:SetAngularDamping(0)
+    -- o.chassis_rigid:SetLinearDamping(0)
+    -- scene_physics:NodeCreatePhysicsFromAssets(o.chassis_node)
 
 
     -- Get wheels rays
