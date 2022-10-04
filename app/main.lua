@@ -1,7 +1,7 @@
 -- HARFANG® 3D - www.harfang3d.com - Raycast Car demo sample
 
 hg = require("harfang")
-rcar = require("car")
+require("car")
 
 -- HARFANG3D inits
 
@@ -60,7 +60,7 @@ ground_node:GetRigidBody():SetType(hg.RBT_Kinematic)
 
 clocks = hg.SceneClocks()
 physics = hg.SceneBullet3Physics()
-car = CreateRCCar("Kubolid", "car", scene, physics, res, hg.Vec3(0, 1.5, 0))
+car = CarModelCreate("Generic Car", "car", scene, physics, res, hg.Vec3(0, 1.5, 0))
 physics:SceneCreatePhysicsFromAssets(scene)
 
 -- Inputs
@@ -81,8 +81,8 @@ while not keyboard:Pressed(hg.K_Escape) do
 
     -- Car updates
 
-    RCCarControl(car, physics, keyboard, dts)
-    RCCarUpdate(car, scene, physics, dts)
+    CarModelControl(car, physics, keyboard, dts)
+    CarModelUpdate(car, scene, physics, dts)
 
     -- Scene updates
 

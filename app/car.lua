@@ -1,6 +1,6 @@
 hg = require("harfang")
 
-function CreateRCCar(name, instance_node_name, scene, scene_physics, resources, start_position, start_rotation)
+function CarModelCreate(name, instance_node_name, scene, scene_physics, resources, start_position, start_rotation)
     local o = {}
     o.start_position = start_position or hg.Vec3(0, 0, 0)
     o.start_rotation = start_rotation or hg.Vec3(0, 0, 0)
@@ -15,13 +15,13 @@ function CreateRCCar(name, instance_node_name, scene, scene_physics, resources, 
     o.instance_node:GetTransform():SetPos(hg.Vec3(0, 0, 0))
     o.scene_view = o.instance_node:GetInstanceSceneView()
     o.nodes = o.scene_view:GetNodes(scene)
-    o.chassis_node = o.scene_view:GetNode(scene, "car_body")
-    if not o.chassis_node:IsValid() then
+    o.root_node = o.scene_view:GetNode(scene, "car_body")
+    if not o.root_node:IsValid() then
         print("ERROR - Parent node not found !")
         return
     end
-    o.chassis_node:GetTransform():SetPos(o.start_position)
-    o.chassis_node:GetTransform():SetRot(o.start_rotation)
+    o.root_node:GetTransform():SetPos(o.start_position)
+    o.root_node:GetTransform():SetRot(o.start_rotation)
     o.thrust = o.scene_view:GetNode(scene, "thrust")
     if not o.thrust:IsValid() then
         print("ERROR - Thrust node not found !")
@@ -53,29 +53,29 @@ function CreateRCCar(name, instance_node_name, scene, scene_physics, resources, 
     o.spring_friction = 2500
     o.tires_reaction = 25
     o.tires_adhesion = 1500
-    o.front_angle_max = 45
+    o.steering_angle_max = 45
     o.thrust_power = 400000 -- Acceleration
     o.brakes_power = 1000000
     o.turn_speed = 150
    
     -- Variables
 
-    o.front_angle = 0
+    o.steering_angle = 0
    
     -- Setup physics
 
     -- o.chassis_rigid = scene:CreateRigidBody()
     -- o.chassis_rigid:SetType(hg.RBT_Dynamic)
-    -- o.chassis_node:SetRigidBody(o.chassis_rigid)
+    -- o.root_node:SetRigidBody(o.chassis_rigid)
     -- colbox = scene:CreateCollision()
     -- colbox:SetType(hg.CT_Cube)
     -- colbox:SetSize(hg.Vec3(1, 0.5, 3))
     -- colbox:SetMass(o.mass)
     -- colbox:SetLocalTransform(hg.TransformationMat4(hg.Vec3(0, 0, 0), hg.Deg3(0, 0, 0)))
-    -- o.chassis_node:SetCollision(1,colbox)
+    -- o.root_node:SetCollision(1,colbox)
     -- o.chassis_rigid:SetAngularDamping(0)
     -- o.chassis_rigid:SetLinearDamping(0)
-    -- scene_physics:NodeCreatePhysicsFromAssets(o.chassis_node)
+    -- scene_physics:NodeCreatePhysicsFromAssets(o.root_node)
 
 
     -- Get wheels rays
@@ -88,133 +88,133 @@ function CreateRCCar(name, instance_node_name, scene, scene_physics, resources, 
     return o
 end
 
-function RCCarReset(rccar, scene_physics)
-    scene_physics:NodeResetWorld(rccar.chassis_node, hg.TransformationMat4(rccar.start_position, rccar.start_rotation))
+function CarModelReset(car_model, scene_physics)
+    scene_physics:NodeResetWorld(car_model.root_node, hg.TransformationMat4(car_model.start_position, car_model.start_rotation))
 end
 
-function RCCarTurn(rccar, angle)
-    rccar.front_angle = math.max(math.min(rccar.front_angle + angle, rccar.front_angle_max), -rccar.front_angle_max)
-    rccar.thrust:GetTransform():SetRot(hg.Deg3(0, rccar.front_angle, 0))
+function CarModelSteer(car_model, angle)
+    car_model.steering_angle = math.max(math.min(car_model.steering_angle + angle, car_model.steering_angle_max), -car_model.steering_angle_max)
+    car_model.thrust:GetTransform():SetRot(hg.Deg3(0, car_model.steering_angle, 0))
 end
 
-function RCCarAccelerate(rccar, value, scene_physics)
+function CarModelAccelerate(car_model, value, scene_physics)
     f = 0
     for i = 1, 2 do
-        if rccar.ground_hits[i] then
+        if car_model.ground_hits[i] then
             f = f + 0.5
         end
     end
-    pos = hg.GetT(rccar.thrust:GetTransform():GetWorld())
-    dir = hg.GetZ(rccar.thrust:GetTransform():GetWorld())
-    scene_physics:NodeAddImpulse(rccar.chassis_node, dir *  f * value * (1/60), pos)
+    pos = hg.GetT(car_model.thrust:GetTransform():GetWorld())
+    dir = hg.GetZ(car_model.thrust:GetTransform():GetWorld())
+    scene_physics:NodeAddImpulse(car_model.root_node, dir *  f * value * (1/60), pos)
 end
 
-function RCCarBrake(rccar, value, scene_physics)
+function CarModelBrake(car_model, value, scene_physics)
     f = 0
     for i = 1, 4 do
-        if rccar.ground_hits[i] then
+        if car_model.ground_hits[i] then
             f = f + 0.25
         end
     end
-    v = scene_physics:NodeGetLinearVelocity(rccar.chassis_node)
+    v = scene_physics:NodeGetLinearVelocity(car_model.root_node)
     value = value * math.min(hg.Len(v), 1)
-    pos = hg.GetT(rccar.thrust:GetTransform():GetWorld())
-    scene_physics:NodeAddImpulse(rccar.chassis_node,hg.Normalize(v) * (1 / 60) * f * -value, pos)
+    pos = hg.GetT(car_model.thrust:GetTransform():GetWorld())
+    scene_physics:NodeAddImpulse(car_model.root_node,hg.Normalize(v) * (1 / 60) * f * -value, pos)
 end
 
-function RCCarUpdate(rccar, scene, scene_physics, dts)
-    scene_physics:NodeWake(rccar.chassis_node)
-    rccar.ray_dir = hg.Reverse(hg.GetY(rccar.chassis_node:GetTransform():GetWorld()))
+function CarModelUpdate(car_model, scene, scene_physics, dts)
+    scene_physics:NodeWake(car_model.root_node)
+    car_model.ray_dir = hg.Reverse(hg.GetY(car_model.root_node:GetTransform():GetWorld()))
     for i = 1, 4 do
-        RCCarUpdateWheel(rccar, scene, scene_physics, i, dts)
+        CarModelUpdateWheel(car_model, scene, scene_physics, i, dts)
     end
 end
 
-function RCCarUpdateWheel(rccar, scene, scene_physics, id, dts)
+function CarModelUpdateWheel(car_model, scene, scene_physics, id, dts)
 
-    wheel = rccar.wheels[id]
-    mat = rccar.chassis_node:GetTransform():GetWorld()  -- Ray position in World space
-    ray_pos = mat * rccar.local_rays[id]
+    wheel = car_model.wheels[id]
+    mat = car_model.root_node:GetTransform():GetWorld()  -- Ray position in World space
+    ray_pos = mat * car_model.local_rays[id]
 
-    hit = scene_physics:RaycastFirstHit(scene,ray_pos, rccar.ray_dir * rccar.ray_max_dist + ray_pos)
-    rccar.ground_hits[id] = false
+    hit = scene_physics:RaycastFirstHit(scene,ray_pos, car_model.ray_dir * car_model.ray_max_dist + ray_pos)
+    car_model.ground_hits[id] = false
     
-    if hit.t > 0 and hit.t < rccar.ray_max_dist then
-        rccar.ground_impacts[id] = hit
-        hit_distance = hg.Len(rccar.ground_impacts[id].P - ray_pos)
-        if hit_distance <= rccar.ray_max_dist then
-            rccar.ground_hits[id] = true
+    if hit.t > 0 and hit.t < car_model.ray_max_dist then
+        car_model.ground_impacts[id] = hit
+        hit_distance = hg.Len(car_model.ground_impacts[id].P - ray_pos)
+        if hit_distance <= car_model.ray_max_dist then
+            car_model.ground_hits[id] = true
         end
     end
 
-    if rccar.ground_hits[id] then
+    if car_model.ground_hits[id] then
         
-        v = hg.Reverse(scene_physics:NodeGetPointVelocity(rccar.chassis_node, ray_pos))
+        v = hg.Reverse(scene_physics:NodeGetPointVelocity(car_model.root_node, ray_pos))
 
         -- Spring bounce
 
-        v_dot_ground_n = hg.Dot(rccar.ground_impacts[id].N, v)
+        v_dot_ground_n = hg.Dot(car_model.ground_impacts[id].N, v)
         if v_dot_ground_n > 0 then
-            v_bounce = rccar.ground_impacts[id].N * v_dot_ground_n
-            scene_physics:NodeAddImpulse(rccar.chassis_node,v_bounce * rccar.spring_friction * dts, ray_pos)
+            v_bounce = car_model.ground_impacts[id].N * v_dot_ground_n
+            scene_physics:NodeAddImpulse(car_model.root_node,v_bounce * car_model.spring_friction * dts, ray_pos)
         end
 
         -- Tire/Ground reaction
 
-        wheel_reaction = math.sqrt(rccar.ray_max_dist - hit_distance) * rccar.tires_reaction
-        scene_physics:NodeAddForce(rccar.chassis_node, rccar.ground_impacts[id].N * wheel_reaction * rccar.mass / 4, ray_pos)
+        wheel_reaction = math.sqrt(car_model.ray_max_dist - hit_distance) * car_model.tires_reaction
+        scene_physics:NodeAddForce(car_model.root_node, car_model.ground_impacts[id].N * wheel_reaction * car_model.mass / 4, ray_pos)
 
         -- Wheel lateral friction
         
         x_axis = hg.GetX(wheel:GetTransform():GetWorld())
         proj = hg.Dot(x_axis, v)
         v_lat = x_axis * proj
-        scene_physics:NodeAddImpulse(rccar.chassis_node, v_lat * rccar.tires_adhesion * dts, ray_pos)
+        scene_physics:NodeAddImpulse(car_model.root_node, v_lat * car_model.tires_adhesion * dts, ray_pos)
 
         -- Adjust wheel on the ground
 
         wheel_p = wheel:GetTransform():GetPos()
-        wheel_p.y = rccar.local_rays[id].y - hit_distance + rccar.wheels_ray
+        wheel_p.y = car_model.local_rays[id].y - hit_distance + car_model.wheels_ray
         wheel:GetTransform():SetPos(wheel_p)
 
         -- Wheel rotation
 
-        z_axis = hg.Normalize(hg.Cross(x_axis, rccar.ray_dir))
+        z_axis = hg.Normalize(hg.Cross(x_axis, car_model.ray_dir))
         vlin = hg.Dot(z_axis, v)  -- Linear speed (along Z axis)
-        rccar.wheels_rot_speed[id] = (vlin / rccar.wheels_ray)
+        car_model.wheels_rot_speed[id] = (vlin / car_model.wheels_ray)
     else
-        rccar.wheels_rot_speed[id] = rccar.wheels_rot_speed[id] * 0.95  -- Wheel slow-down
+        car_model.wheels_rot_speed[id] = car_model.wheels_rot_speed[id] * 0.95  -- Wheel slow-down
     end
 
     rot = wheel:GetTransform():GetRot()
-    rot.x = rot.x + rccar.wheels_rot_speed[id] * dts
+    rot.x = rot.x + car_model.wheels_rot_speed[id] * dts
     if id == 1 or id == 2 then
-        rot.y = hg.Deg(rccar.front_angle)
+        rot.y = hg.Deg(car_model.steering_angle)
     end
     wheel:GetTransform():SetRot(rot)
 end
 
-function RCCarGetParentNode(rccar)
-    return rccar.chassis_node
+function CarModelGetRootNode(car_model)
+    return car_model.root_node
 end
 
-function RCCarControl(rccar, scene_physics, kb, dts)
+function CarModelControl(car_model, scene_physics, kb, dts)
     if kb:Down(hg.K_Up) then
-        RCCarAccelerate(rccar,  rccar.thrust_power * dts, scene_physics)
+        CarModelAccelerate(car_model,  car_model.thrust_power * dts, scene_physics)
     end
     if kb:Down(hg.K_Down) then
-        RCCarAccelerate(rccar, -rccar.thrust_power * dts, scene_physics)
+        CarModelAccelerate(car_model, -car_model.thrust_power * dts, scene_physics)
     end
     if kb:Down(hg.K_Space) then
-        RCCarBrake(rccar, rccar.brakes_power * dts, scene_physics)
+        CarModelBrake(car_model, car_model.brakes_power * dts, scene_physics)
     end
     if kb:Down(hg.K_Left) then
-        RCCarTurn(rccar, -rccar.turn_speed * dts)
+        CarModelSteer(car_model, -car_model.turn_speed * dts)
     end
     if kb:Down(hg.K_Right) then
-        RCCarTurn(rccar, rccar.turn_speed * dts)
+        CarModelSteer(car_model, car_model.turn_speed * dts)
     end
     if kb:Pressed(hg.K_Backspace) then
-        RCCarReset(rccar, scene_physics)
+        CarModelReset(car_model, scene_physics)
     end
 end
