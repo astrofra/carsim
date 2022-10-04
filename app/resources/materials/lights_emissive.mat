@@ -7,7 +7,7 @@
 	"textures": [
 		{
 			"name": "uBaseOpacityMap",
-			"path": "vehicles/generic_vehicle/Car03_Lights_Emissive.png",
+			"path": "vehicles/generic_vehicle/Car03_Lights_Emissive.hdr",
 			"stage": 0
 		}
 	],
