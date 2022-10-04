@@ -23,11 +23,12 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     end
     o.root_node:GetTransform():SetPos(o.start_position)
     o.root_node:GetTransform():SetRot(o.start_rotation)
-    o.thrust = o.scene_view:GetNode(scene, "thrust")
-    if not o.thrust:IsValid() then
-        print("ERROR - Thrust node not found !")
+    local thrust_node = o.scene_view:GetNode(scene, "thrust")
+    if not thrust_node:IsValid() then
+        print("ERROR - 'thrust' node not found !")
         return
     end
+    o.thrust_transform = thrust_node:GetTransform()
     o.wheels = {}
     for n = 0, 3 do
         wheel = o.scene_view:GetNode(scene, "wheel_" .. n)
@@ -95,22 +96,22 @@ end
 
 function CarModelSteer(car_model, angle)
     car_model.steering_angle = math.max(math.min(car_model.steering_angle + angle, car_model.steering_angle_max), -car_model.steering_angle_max)
-    car_model.thrust:GetTransform():SetRot(hg.Deg3(0, car_model.steering_angle, 0))
+    car_model.thrust_transform:SetRot(hg.Deg3(0, car_model.steering_angle, 0))
 end
 
-function CarModelAccelerate(car_model, value, scene_physics)
+function CarModelApplyAcceleration(car_model, value, scene_physics)
     f = 0
     for i = 1, 2 do
         if car_model.ground_hits[i] then
             f = f + 0.5
         end
     end
-    pos = hg.GetT(car_model.thrust:GetTransform():GetWorld())
-    dir = hg.GetZ(car_model.thrust:GetTransform():GetWorld())
+    pos = hg.GetT(car_model.thrust_transform:GetWorld())
+    dir = hg.GetZ(car_model.thrust_transform:GetWorld())
     scene_physics:NodeAddImpulse(car_model.root_node, dir *  f * value * (1/60), pos)
 end
 
-function CarModelBrake(car_model, value, scene_physics)
+function CarModelApplyBrake(car_model, value, scene_physics)
     f = 0
     for i = 1, 4 do
         if car_model.ground_hits[i] then
@@ -119,7 +120,7 @@ function CarModelBrake(car_model, value, scene_physics)
     end
     v = scene_physics:NodeGetLinearVelocity(car_model.root_node)
     value = value * math.min(hg.Len(v), 1)
-    pos = hg.GetT(car_model.thrust:GetTransform():GetWorld())
+    pos = hg.GetT(car_model.thrust_transform:GetWorld())
     scene_physics:NodeAddImpulse(car_model.root_node,hg.Normalize(v) * (1 / 60) * f * -value, pos)
 end
 
@@ -201,13 +202,13 @@ end
 
 function CarModelControl(car_model, scene_physics, kb, dts)
     if kb:Down(hg.K_Up) then
-        CarModelAccelerate(car_model,  car_model.thrust_power * dts, scene_physics)
+        CarModelApplyAcceleration(car_model,  car_model.thrust_power * dts, scene_physics)
     end
     if kb:Down(hg.K_Down) then
-        CarModelAccelerate(car_model, -car_model.thrust_power * dts, scene_physics)
+        CarModelApplyAcceleration(car_model, -car_model.thrust_power * dts, scene_physics)
     end
     if kb:Down(hg.K_Space) then
-        CarModelBrake(car_model, car_model.brakes_power * dts, scene_physics)
+        CarModelApplyBrake(car_model, car_model.brakes_power * dts, scene_physics)
     end
     if kb:Down(hg.K_Left) then
         CarModelSteer(car_model, -car_model.turn_speed * dts)
