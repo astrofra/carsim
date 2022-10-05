@@ -58,7 +58,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     o.steering_angle_max = 25
     o.thrust_power = 400000 -- Acceleration
     o.brakes_power = 1000000
-    o.turn_speed = 150
+    o.steering_speed = 150
    
     -- Variables
 
@@ -94,7 +94,7 @@ function CarModelReset(car_model, scene_physics)
     scene_physics:NodeResetWorld(car_model.root_node, hg.TransformationMat4(car_model.start_position, car_model.start_rotation))
 end
 
-function CarModelSteer(car_model, angle)
+function CarModelIncreaseSteering(car_model, angle)
     car_model.steering_angle = math.max(math.min(car_model.steering_angle + angle, car_model.steering_angle_max), -car_model.steering_angle_max)
     car_model.thrust_transform:SetRot(hg.Deg3(0, car_model.steering_angle, 0))
 end
@@ -124,16 +124,19 @@ function CarModelApplyBrake(car_model, value, scene_physics)
     scene_physics:NodeAddImpulse(car_model.root_node,hg.Normalize(v) * (1 / 60) * f * -value, pos)
 end
 
-function CarModelUpdate(car_model, scene, scene_physics, dts)
+function CarModelUpdate(car_model, scene, scene_physics, dt)
+    local dts = hg.time_to_sec_f(dt)
+
     scene_physics:NodeWake(car_model.root_node)
     car_model.ray_dir = hg.Reverse(hg.GetY(car_model.root_node:GetTransform():GetWorld()))
     for i = 1, 4 do
-        CarModelUpdateWheel(car_model, scene, scene_physics, i, dts)
+        CarModelUpdateWheel(car_model, scene, scene_physics, i, dt)
     end
 end
 
-function CarModelUpdateWheel(car_model, scene, scene_physics, id, dts)
-
+function CarModelUpdateWheel(car_model, scene, scene_physics, id, dt)
+    local dts = hg.time_to_sec_f(dt)
+    
     wheel = car_model.wheels[id]
     mat = car_model.root_node:GetTransform():GetWorld()  -- Ray position in World space
     ray_pos = mat * car_model.local_rays[id]
@@ -200,7 +203,9 @@ function CarModelGetRootNode(car_model)
     return car_model.root_node
 end
 
-function CarModelControl(car_model, scene_physics, kb, dts)
+function CarModelControlKeyboard(car_model, scene_physics, kb, dt)
+    local dts = hg.time_to_sec_f(dt)
+
     if kb:Down(hg.K_Up) then
         CarModelApplyAcceleration(car_model,  car_model.thrust_power * dts, scene_physics)
     end
@@ -211,10 +216,10 @@ function CarModelControl(car_model, scene_physics, kb, dts)
         CarModelApplyBrake(car_model, car_model.brakes_power * dts, scene_physics)
     end
     if kb:Down(hg.K_Left) then
-        CarModelSteer(car_model, -car_model.turn_speed * dts)
+        CarModelIncreaseSteering(car_model, -car_model.steering_speed * dts)
     end
     if kb:Down(hg.K_Right) then
-        CarModelSteer(car_model, car_model.turn_speed * dts)
+        CarModelIncreaseSteering(car_model, car_model.steering_speed * dts)
     end
     if kb:Pressed(hg.K_Backspace) then
         CarModelReset(car_model, scene_physics)

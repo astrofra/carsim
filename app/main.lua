@@ -54,7 +54,6 @@ function main(visual_debug_physics)
     physics:SceneCreatePhysicsFromAssets(scene)
 
     -- Inputs
-
     local keyboard = hg.Keyboard()
     local mouse = hg.Mouse()
     hg.ResetClock()
@@ -71,12 +70,10 @@ function main(visual_debug_physics)
         local vid, passId
 
         -- Car updates
-
-        CarModelControl(car, physics, keyboard, dts)
-        CarModelUpdate(car, scene, physics, dts)
+        CarModelControlKeyboard(car, physics, keyboard, dt)
+        CarModelUpdate(car, scene, physics, dt)
 
         -- Scene updates
-
         hg.SceneUpdateSystems(scene, clocks, dt, physics, hg.time_from_sec_f(1/60), 3)
         vid, passId = hg.SubmitSceneToPipeline(0, scene, hg.IntRect(0, 0, res_x, res_y), true, pipeline, res)
 
