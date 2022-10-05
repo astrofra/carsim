@@ -11,3 +11,10 @@ function DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics)
 
         return visual_debug_physics
 end
+
+function draw_line(pos_a, pos_b, line_color, vid, vtx_line_layout, line_shader)
+	local vtx = hg.Vertices(vtx_line_layout, 2)
+	vtx:Begin(0):SetPos(pos_a):SetColor0(line_color):End()
+	vtx:Begin(1):SetPos(pos_b):SetColor0(line_color):End()
+	hg.DrawLines(vid, vtx, line_shader)
+end

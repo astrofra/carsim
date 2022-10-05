@@ -2,7 +2,7 @@
 
 hg = require("harfang")
 require("car")
-require("debug_ui")
+require("visual_debug")
 require("utils")
 
 function main(visual_debug_physics)
@@ -31,11 +31,7 @@ function main(visual_debug_physics)
     hg.ImGuiInit(10, imgui_prg, imgui_img_prg)
 
     -- Display physics debug lines
-    local vtx_lines = hg.VertexLayout()
-    vtx_lines:Begin()
-    vtx_lines:Add(hg.A_Position, 3, hg.AT_Float)
-    vtx_lines:Add(hg.A_Color0, 3, hg.AT_Float)
-    vtx_lines:End()
+    local vtx_line_layout = hg.VertexLayoutPosFloatColorUInt8()
     local lines_program = hg.LoadProgramFromAssets("shaders/pos_rgb")
 
     -- Load scene
@@ -60,7 +56,6 @@ function main(visual_debug_physics)
     ground_node:GetRigidBody():SetType(hg.RBT_Kinematic)
 
     -- Scene physics
-
     local clocks = hg.SceneClocks()
     local physics = hg.SceneBullet3Physics()
     local car = CarModelCreate("Generic Car", "car", scene, physics, res, hg.Vec3(0, 1.5, 0))
@@ -80,6 +75,7 @@ function main(visual_debug_physics)
         local dt = hg.TickClock()
         local dts = hg.time_to_sec_f(dt)
         local view_id, passId
+        local lines = {} -- list of debugging draw primitives
 
         -- ImGui
         hg.ImGuiBeginFrame(res_x, res_y, dt, hg.ReadMouse(), hg.ReadKeyboard())
@@ -88,11 +84,17 @@ function main(visual_debug_physics)
 
         -- Car updates
         CarModelControlKeyboard(car, physics, keyboard, dt)
-        CarModelUpdate(car, scene, physics, dt)
+        lines = CarModelUpdate(car, scene, physics, dt, lines)
 
         -- Scene updates
         hg.SceneUpdateSystems(scene, clocks, dt, physics, dt, 4)
         view_id, passId = hg.SubmitSceneToPipeline(0, scene, hg.IntRect(0, 0, res_x, res_y), true, pipeline, res)
+
+            -- debug draw lines
+        local opaque_view_id = hg.GetSceneForwardPipelinePassViewId(passId, hg.SFPP_Opaque)
+        for i=1, #lines do
+            draw_line(lines[i].pos_a, lines[i].pos_b, lines[i].color, opaque_view_id, vtx_line_layout, lines_program)
+        end
 
         -- Debug physics
         if visual_debug_physics then
@@ -104,7 +106,7 @@ function main(visual_debug_physics)
             local projection_matrix = hg.ComputePerspectiveProjectionMatrix(c:GetZNear(), c:GetZFar(), hg.FovToZoomFactor(c:GetFov()), hg.Vec2(res_x / res_y, 1))
             hg.SetViewTransform(view_id, view_matrix, projection_matrix)
             local rs = hg.ComputeRenderState(hg.BM_Opaque, hg.DT_Disabled, hg.FC_Disabled)
-            physics:RenderCollision(view_id, vtx_lines, lines_program, rs, 0)
+            physics:RenderCollision(view_id, vtx_line_layout, lines_program, rs, 0)
             view_id = view_id + 1
         end
 

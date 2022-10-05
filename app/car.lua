@@ -52,6 +52,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     -- Constants
     
     o.mass = NodeGetPhysicsMass(o.root_node)
+    o.center_of_mass = NodeGetPhysicsCenterOfMass(o.root_node)
     o.spring_friction = 2500
     o.tires_reaction = 25
     o.tires_adhesion = 5000
@@ -61,7 +62,6 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     o.steering_speed = 150
    
     -- Variables
-
     o.steering_angle = 0
    
     -- Setup physics
@@ -124,7 +124,7 @@ function CarModelApplyBrake(car_model, value, scene_physics)
     scene_physics:NodeAddImpulse(car_model.root_node,hg.Normalize(v) * (1 / 60) * f * -value, pos)
 end
 
-function CarModelUpdate(car_model, scene, scene_physics, dt)
+function CarModelUpdate(car_model, scene, scene_physics, dt, lines)
     local dts = hg.time_to_sec_f(dt)
 
     scene_physics:NodeWake(car_model.root_node)
@@ -132,11 +132,24 @@ function CarModelUpdate(car_model, scene, scene_physics, dt)
     for i = 1, 4 do
         CarModelUpdateWheel(car_model, scene, scene_physics, i, dt)
     end
+
+    local car_world = car_model.root_node:GetTransform():GetWorld()
+    -- local car_pos = hg.GetTranslation(car_world)
+    -- car_pos = hg.Vec3(car_pos.x, car_pos.y, car_pos.z)
+    -- car_pos = car_pos + car_model.center_of_mass
+
+    local car_pos = car_world * car_model.center_of_mass
+    local _s = 2.0
+    table.insert(lines, {pos_a = car_pos + hg.GetX(car_world) * _s, pos_b = car_pos - hg.GetX(car_world) * _s, color = hg.Color.Red})
+    table.insert(lines, {pos_a = car_pos + hg.GetY(car_world) * _s, pos_b = car_pos - hg.GetY(car_world) * _s, color = hg.Color.Green})
+    table.insert(lines, {pos_a = car_pos + hg.GetZ(car_world) * _s, pos_b = car_pos - hg.GetZ(car_world) * _s, color = hg.Color.Blue})
+
+    return lines
 end
 
 function CarModelUpdateWheel(car_model, scene, scene_physics, id, dt)
     local dts = hg.time_to_sec_f(dt)
-    
+
     wheel = car_model.wheels[id]
     mat = car_model.root_node:GetTransform():GetWorld()  -- Ray position in World space
     ray_pos = mat * car_model.local_rays[id]
@@ -165,25 +178,21 @@ function CarModelUpdateWheel(car_model, scene, scene_physics, id, dt)
         end
 
         -- Tire/Ground reaction
-
         wheel_reaction = math.sqrt(car_model.ray_max_dist - hit_distance) * car_model.tires_reaction
         scene_physics:NodeAddForce(car_model.root_node, car_model.ground_impacts[id].N * wheel_reaction * car_model.mass / 4, ray_pos)
 
         -- Wheel lateral friction
-        
         x_axis = hg.GetX(wheel:GetTransform():GetWorld())
         proj = hg.Dot(x_axis, v)
         v_lat = x_axis * proj
         scene_physics:NodeAddImpulse(car_model.root_node, v_lat * car_model.tires_adhesion * dts, ray_pos)
 
         -- Adjust wheel on the ground
-
         wheel_p = wheel:GetTransform():GetPos()
         wheel_p.y = car_model.local_rays[id].y - hit_distance + car_model.wheels_ray
         wheel:GetTransform():SetPos(wheel_p)
 
         -- Wheel rotation
-
         z_axis = hg.Normalize(hg.Cross(x_axis, car_model.ray_dir))
         vlin = hg.Dot(z_axis, v)  -- Linear speed (along Z axis)
         car_model.wheels_rot_speed[id] = (vlin / car_model.wheels_ray)

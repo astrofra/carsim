@@ -53,6 +53,19 @@ function NodeGetPhysicsMass(node)
     return mass
 end
 
+function NodeGetPhysicsCenterOfMass(node)
+    local mass = NodeGetPhysicsMass(node)
+    local n = node:GetCollisionCount()
+    local center_of_mass = hg.Vec3(0,0,0)
+    for i = 0, n-1 do
+        local col = node:GetCollision(i)
+        local mass_ratio = col:GetMass() / mass
+        center_of_mass = center_of_mass + (hg.GetTranslation(col:GetLocalTransform()) * mass_ratio)
+    end
+
+    return center_of_mass
+end
+
 function CreateMaterialFromProgram(prg_ref, ubc, orm)
     mat = hg.Material()
     hg.SetMaterialProgram(mat, prg_ref)
