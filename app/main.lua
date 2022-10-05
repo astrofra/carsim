@@ -2,7 +2,7 @@
 
 hg = require("harfang")
 require("car")
-require("debug")
+require("debug_ui")
 require("utils")
 
 function main(visual_debug_physics)
@@ -84,12 +84,7 @@ function main(visual_debug_physics)
         -- ImGui
         hg.ImGuiBeginFrame(res_x, res_y, dt, hg.ReadMouse(), hg.ReadKeyboard())
 
-        hg.ImGuiBegin("Debug", true, hg.ImGuiWindowFlags_NoMove | hg.ImGuiWindowFlags_NoResize)
-        hg.ImGuiSetWindowSize("Debug", hg.Vec2(debug_res_x, debug_res_y), hg.ImGuiCond_Once)
-        hg.ImGuiText("dt = " .. tostring(TruncateFloat(dts, 4)))
-        _, visual_debug_physics = hg.ImGuiCheckbox("Physics debug", visual_debug_physics)
-        hg.ImGuiEnd()
-        -- visual_debug_physics = DisplayDebugGUI(debug_res_x, debug_res_y, dt, visual_debug_physics)
+        visual_debug_physics = DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics)
 
         -- Car updates
         CarModelControlKeyboard(car, physics, keyboard, dt)

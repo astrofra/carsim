@@ -1,6 +1,6 @@
 hg = require("harfang")
 
-function DisplayDebugGUI(debug_res_x, debug_res_y, dt, visual_debug_physics)
+function DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics)
         local dts = hg.time_to_sec_f(dt)
 
         hg.ImGuiBegin("Debug", true, hg.ImGuiWindowFlags_NoMove | hg.ImGuiWindowFlags_NoResize)
