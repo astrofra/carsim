@@ -80,14 +80,14 @@ function main(visual_debug_physics)
         -- ImGui
         hg.ImGuiBeginFrame(res_x, res_y, dt, hg.ReadMouse(), hg.ReadKeyboard())
 
-        visual_debug_physics = DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics)
+        visual_debug_physics = DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics, car.mass)
 
         -- Car updates
         CarModelControlKeyboard(car, physics, keyboard, dt)
-        lines = CarModelUpdate(car, scene, physics, dt, lines)
+        lines = CarModelUpdate(car, scene, physics, dt, lines, visual_debug_physics)
 
         -- Scene updates
-        hg.SceneUpdateSystems(scene, clocks, dt, physics, dt, 4)
+        hg.SceneUpdateSystems(scene, clocks, dt, physics, hg.time_from_sec_f(1.0/60.0), 4)
         view_id, passId = hg.SubmitSceneToPipeline(0, scene, hg.IntRect(0, 0, res_x, res_y), true, pipeline, res)
 
             -- debug draw lines

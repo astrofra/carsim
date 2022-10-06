@@ -1,11 +1,12 @@
 hg = require("harfang")
 
-function DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics)
+function DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics, car_mass)
         local dts = hg.time_to_sec_f(dt)
 
         hg.ImGuiBegin("Debug", true, hg.ImGuiWindowFlags_NoMove | hg.ImGuiWindowFlags_NoResize)
         hg.ImGuiSetWindowSize("Debug", hg.Vec2(debug_res_x, debug_res_y), hg.ImGuiCond_Once)
         hg.ImGuiText("dt = " .. tostring(TruncateFloat(dts, 4)))
+        hg.ImGuiText("car_mass = " .. tostring(car_mass) .. "Kg")
         _, visual_debug_physics = hg.ImGuiCheckbox("Physics debug", visual_debug_physics)
         hg.ImGuiEnd()
 

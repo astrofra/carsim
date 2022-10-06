@@ -124,7 +124,7 @@ function CarModelApplyBrake(car_model, value, scene_physics)
     scene_physics:NodeAddImpulse(car_model.root_node,hg.Normalize(v) * (1 / 60) * f * -value, pos)
 end
 
-function CarModelUpdate(car_model, scene, scene_physics, dt, lines)
+function CarModelUpdate(car_model, scene, scene_physics, dt, lines, visual_debug_physics)
     local dts = hg.time_to_sec_f(dt)
 
     scene_physics:NodeWake(car_model.root_node)
@@ -138,11 +138,13 @@ function CarModelUpdate(car_model, scene, scene_physics, dt, lines)
     -- car_pos = hg.Vec3(car_pos.x, car_pos.y, car_pos.z)
     -- car_pos = car_pos + car_model.center_of_mass
 
-    local car_pos = car_world * car_model.center_of_mass
-    local _s = 2.0
-    table.insert(lines, {pos_a = car_pos + hg.GetX(car_world) * _s, pos_b = car_pos - hg.GetX(car_world) * _s, color = hg.Color.Red})
-    table.insert(lines, {pos_a = car_pos + hg.GetY(car_world) * _s, pos_b = car_pos - hg.GetY(car_world) * _s, color = hg.Color.Green})
-    table.insert(lines, {pos_a = car_pos + hg.GetZ(car_world) * _s, pos_b = car_pos - hg.GetZ(car_world) * _s, color = hg.Color.Blue})
+    if visual_debug_physics then
+        local car_pos = car_world * car_model.center_of_mass
+        local _s = 2.0
+        table.insert(lines, {pos_a = car_pos + hg.GetX(car_world) * _s, pos_b = car_pos - hg.GetX(car_world) * _s, color = hg.Color.Red})
+        table.insert(lines, {pos_a = car_pos + hg.GetY(car_world) * _s, pos_b = car_pos - hg.GetY(car_world) * _s, color = hg.Color.Green})
+        table.insert(lines, {pos_a = car_pos + hg.GetZ(car_world) * _s, pos_b = car_pos - hg.GetZ(car_world) * _s, color = hg.Color.Blue})
+    end
 
     return lines
 end
