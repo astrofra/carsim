@@ -19,6 +19,34 @@ function CarCameraCreate(instance_node_name, scene)
         return
     end
 
-    o.camera_interior = wheel = o.scene_view:GetNode(scene, "camera_interior")
-    o.camera_exterior_rear = wheel = o.scene_view:GetNode(scene, "camera_exterior_rear")
+    o.camera_list = {}
+    table.insert(o.camera_list, o.scene_view:GetNode(scene, "camera_interior"))
+    table.insert(o.camera_list, o.scene_view:GetNode(scene, "camera_exterior_rear"))
+
+    o.current_camera = 0
+
+    return o
+end
+
+function CarCameraUpdate(o, scene, kb, dt)
+    -- if car_camera.current_camera then
+    --     scene:SetCurrentCamera(car_camera.current_camera)
+    -- end
+
+    if kb:Pressed(hg.K_C) then
+        o.current_camera = o.current_camera + 1
+        if o.current_camera > #o.camera_list then
+            o.current_camera = 0
+        end
+
+        if o.current_camera > 0 then
+            scene:SetCurrentCamera(o.camera_list[o.current_camera])
+        end
+    end
+
+    if o.current_camera then
+        return o.camera_list[o.current_camera]
+    else
+        return nil
+    end
 end

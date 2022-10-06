@@ -2,6 +2,7 @@
 
 hg = require("harfang")
 require("car")
+require("car_camera")
 require("visual_debug")
 require("utils")
 
@@ -37,7 +38,7 @@ function main(visual_debug_physics)
     -- Load scene
     local scene = hg.Scene()
     hg.LoadSceneFromAssets("main.scn", scene, res, hg.GetForwardPipelineInfo())
-    local cam = scene:GetNode("Camera")
+    local default_camera = scene:GetNode("Camera")
 
     -- Ground
     local vs_decl= hg.VertexLayoutPosFloatNormUInt8()
@@ -61,6 +62,9 @@ function main(visual_debug_physics)
     local car = CarModelCreate("Generic Car", "car", scene, physics, res, hg.Vec3(0, 1.5, 0))
     physics:SceneCreatePhysicsFromAssets(scene)
 
+    -- Car camera
+    local car_camera = CarCameraCreate("car", scene)
+
     -- Inputs
     local keyboard = hg.Keyboard()
     local mouse = hg.Mouse()
@@ -74,7 +78,7 @@ function main(visual_debug_physics)
 
         local dt = hg.TickClock()
         local dts = hg.time_to_sec_f(dt)
-        local view_id, passId
+        local view_id = 0, passId
         local lines = {} -- list of debugging draw primitives
 
         -- ImGui
@@ -85,10 +89,15 @@ function main(visual_debug_physics)
         -- Car updates
         CarModelControlKeyboard(car, physics, keyboard, dt)
         lines = CarModelUpdate(car, scene, physics, dt, lines, visual_debug_physics)
+        local current_camera_node = CarCameraUpdate(car_camera, scene, keyboard, dt)
+        if current_camera_node == nil then
+            scene:SetCurrentCamera(default_camera)
+            current_camera_node = default_camera
+        end
 
         -- Scene updates
         hg.SceneUpdateSystems(scene, clocks, dt, physics, hg.time_from_sec_f(1.0/60.0), 4)
-        view_id, passId = hg.SubmitSceneToPipeline(0, scene, hg.IntRect(0, 0, res_x, res_y), true, pipeline, res)
+        view_id, passId = hg.SubmitSceneToPipeline(view_id, scene, hg.IntRect(0, 0, res_x, res_y), true, pipeline, res)
 
             -- debug draw lines
         local opaque_view_id = hg.GetSceneForwardPipelinePassViewId(passId, hg.SFPP_Opaque)
@@ -100,9 +109,9 @@ function main(visual_debug_physics)
         if visual_debug_physics then
             hg.SetViewClear(view_id, 0, 0, 1.0, 0)
             hg.SetViewRect(view_id, 0, 0, res_x, res_y)
-            local cam_mat = cam:GetTransform():GetWorld()
+            local cam_mat = current_camera_node:GetTransform():GetWorld()
             local view_matrix = hg.InverseFast(cam_mat)
-            c = cam:GetCamera()
+            c = current_camera_node:GetCamera()
             local projection_matrix = hg.ComputePerspectiveProjectionMatrix(c:GetZNear(), c:GetZFar(), hg.FovToZoomFactor(c:GetFov()), hg.Vec2(res_x / res_y, 1))
             hg.SetViewTransform(view_id, view_matrix, projection_matrix)
             local rs = hg.ComputeRenderState(hg.BM_Opaque, hg.DT_Disabled, hg.FC_Disabled)

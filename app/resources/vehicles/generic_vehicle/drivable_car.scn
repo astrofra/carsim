@@ -299,7 +299,7 @@
 			255
 		],
 		"brdf_map": "core/pbr/brdf.dds",
-		"current_camera": 20,
+		"current_camera": 13,
 		"fog_color": [
 			255,
 			255,
@@ -539,7 +539,7 @@
 			],
 			"disabled": false,
 			"idx": 10,
-			"name": "cam_interior"
+			"name": "camera_interior"
 		},
 		{
 			"components": [
@@ -575,8 +575,8 @@
 				4294967295
 			],
 			"disabled": false,
-			"idx": 20,
-			"name": "cam_exterior_rear"
+			"idx": 13,
+			"name": "camera_exterior_rear"
 		}
 	],
 	"objects": [
@@ -2244,14 +2244,14 @@
 			]
 		},
 		{
-			"parent": null,
+			"parent": 0,
 			"pos": [
 				-0.33685609698295593,
-				1.124158501625061,
-				0.0
+				0.8500000238418579,
+				1.3986192648474116e-08
 			],
 			"rot": [
-				-0.0,
+				1.9999998807907104,
 				0.0,
 				0.0
 			],
@@ -2280,11 +2280,11 @@
 			]
 		},
 		{
-			"parent": null,
+			"parent": 0,
 			"pos": [
 				0.0,
-				2.25,
-				-3.25
+				4.0,
+				-6.0
 			],
 			"rot": [
 				30.0,
@@ -2293,8 +2293,8 @@
 			],
 			"scl": [
 				1.0,
-				1.0,
-				1.0
+				0.9999998807907104,
+				0.9999998807907104
 			]
 		}
 	]
