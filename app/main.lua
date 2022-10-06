@@ -18,7 +18,7 @@ function main(visual_debug_physics, visual_debug_car_physics)
     hg.InputInit()
     hg.WindowSystemInit()
 
-    local res_x, res_y = ResolutionMultiplier(1280, 720, 0.75)
+    local res_x, res_y = ResolutionMultiplier(1280, 720, 1.0)
     local win = hg.RenderInit('Raycast car', res_x, res_y, hg.RF_VSync | hg.RF_MSAA4X)
 
     pipeline = hg.CreateForwardPipeline()
