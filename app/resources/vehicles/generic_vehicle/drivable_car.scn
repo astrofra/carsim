@@ -8,6 +8,15 @@
 				"zfar": 1000.0,
 				"znear": 0.009999999776482582
 			}
+		},
+		{
+			"fov": 0.8883586525917053,
+			"ortho": false,
+			"size": 1.0,
+			"zrange": {
+				"zfar": 1000.0,
+				"znear": 0.009999999776482582
+			}
 		}
 	],
 	"canvas": {
@@ -290,7 +299,7 @@
 			255
 		],
 		"brdf_map": "core/pbr/brdf.dds",
-		"current_camera": 10,
+		"current_camera": 20,
 		"fog_color": [
 			255,
 			255,
@@ -530,7 +539,7 @@
 			],
 			"disabled": false,
 			"idx": 10,
-			"name": "CameraInterior"
+			"name": "cam_interior"
 		},
 		{
 			"components": [
@@ -556,6 +565,18 @@
 			"idx": 12,
 			"instance": 0,
 			"name": "carlights"
+		},
+		{
+			"components": [
+				13,
+				1,
+				4294967295,
+				4294967295,
+				4294967295
+			],
+			"disabled": false,
+			"idx": 20,
+			"name": "cam_exterior_rear"
 		}
 	],
 	"objects": [
@@ -2256,6 +2277,24 @@
 				0.9999997615814209,
 				1.0,
 				0.9999997615814209
+			]
+		},
+		{
+			"parent": null,
+			"pos": [
+				0.0,
+				2.25,
+				-3.25
+			],
+			"rot": [
+				30.0,
+				0.0,
+				0.0
+			],
+			"scl": [
+				1.0,
+				1.0,
+				1.0
 			]
 		}
 	]

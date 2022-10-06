@@ -41,7 +41,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     
     o.ray_dir = nil
     obj = o.wheels[1]:GetObject()
-    f,bounds = obj:GetMinMax(resources)
+    _,bounds = obj:GetMinMax(resources)
     o.wheels_ray = bounds.mx.y
     o.ray_max_dist = o.wheels_ray + 0.2
 
@@ -80,8 +80,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     -- scene_physics:NodeCreatePhysicsFromAssets(o.root_node)
 
 
-    -- Get wheels rays
-
+    -- Get wheels position
     o.local_rays = {}
     for _, wheel in pairs(o.wheels) do
         table.insert(o.local_rays, wheel:GetTransform():GetPos())
