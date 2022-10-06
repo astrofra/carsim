@@ -49,8 +49,10 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     o.ground_hits = {false, false, false, false}
     o.ground_impacts = {nil, nil, nil, nil}
 
+    -- Steering wheel
+    o.steering_wheel_trs = o.scene_view:GetNode(scene, "steering_wheel"):GetTransform()
+
     -- Constants
-    
     o.mass = NodeGetPhysicsMass(o.root_node)
     o.center_of_mass = NodeGetPhysicsCenterOfMass(o.root_node)
     o.spring_friction = 2500
@@ -95,7 +97,7 @@ end
 
 function CarModelIncreaseSteering(car_model, angle)
     car_model.steering_angle = math.max(math.min(car_model.steering_angle + angle, car_model.steering_angle_max), -car_model.steering_angle_max)
-    car_model.thrust_transform:SetRot(hg.Deg3(0, car_model.steering_angle, 0))
+    -- car_model.thrust_transform:SetRot(hg.Deg3(0, car_model.steering_angle, 0))
 end
 
 function CarModelApplyAcceleration(car_model, value, scene_physics)
@@ -125,6 +127,12 @@ end
 
 function CarModelUpdate(car_model, scene, scene_physics, dt, lines, visual_debug_physics)
     local dts = hg.time_to_sec_f(dt)
+
+    -- Update steering
+    local steering_wheel_rot = car_model.steering_wheel_trs:GetRot()
+    steering_wheel_rot.y = hg.Deg(180 - car_model.steering_angle * 2.0)
+    car_model.steering_wheel_trs:SetRot(steering_wheel_rot) -- Update the 'steering wheel' node
+    car_model.thrust_transform:SetRot(hg.Deg3(0, car_model.steering_angle, 0)) -- Update the 'thrust' node 
 
     scene_physics:NodeWake(car_model.root_node)
     car_model.ray_dir = hg.Reverse(hg.GetY(car_model.root_node:GetTransform():GetWorld()))
