@@ -80,6 +80,7 @@ function main(visual_debug_physics)
         local dts = hg.time_to_sec_f(dt)
         local view_id = 0, passId
         local lines = {} -- list of debugging draw primitives
+        local car_velocity
 
         -- ImGui
         hg.ImGuiBeginFrame(res_x, res_y, dt, hg.ReadMouse(), hg.ReadKeyboard())
@@ -88,8 +89,8 @@ function main(visual_debug_physics)
 
         -- Car updates
         CarModelControlKeyboard(car, physics, keyboard, dt)
-        lines = CarModelUpdate(car, scene, physics, dt, lines, visual_debug_physics)
-        local current_camera_node = CarCameraUpdate(car_camera, scene, keyboard, dt)
+        lines, car_velocity = CarModelUpdate(car, scene, physics, dt, lines, visual_debug_physics)
+        local current_camera_node = CarCameraUpdate(car_camera, scene, keyboard, dt, car_velocity)
         if current_camera_node == nil then
             scene:SetCurrentCamera(default_camera)
             current_camera_node = default_camera
