@@ -6,10 +6,11 @@ require("car_camera")
 require("visual_debug")
 require("utils")
 
-function main(visual_debug_physics)
+function main(visual_debug_physics, visual_debug_car_physics)
 
     -- default values
     visual_debug_physics = visual_debug_physics or false
+    visual_debug_car_physics = visual_debug_car_physics or false
 
     local debug_res_x, debug_res_y = 256, 128
 
@@ -85,11 +86,12 @@ function main(visual_debug_physics)
         -- ImGui
         hg.ImGuiBeginFrame(res_x, res_y, dt, hg.ReadMouse(), hg.ReadKeyboard())
 
-        visual_debug_physics = DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics, car.mass)
+        visual_debug_physics, visual_debug_car_physics = 
+            DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics, visual_debug_car_physics, car.mass)
 
         -- Car updates
         CarModelControlKeyboard(car, physics, keyboard, dt)
-        lines, car_velocity = CarModelUpdate(car, scene, physics, dt, lines, visual_debug_physics)
+        lines, car_velocity = CarModelUpdate(car, scene, physics, dt, lines, visual_debug_car_physics)
         local current_camera_node = CarCameraUpdate(car_camera, scene, keyboard, dt, car_velocity)
         if current_camera_node == nil then
             scene:SetCurrentCamera(default_camera)
