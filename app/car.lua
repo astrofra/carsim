@@ -1,4 +1,4 @@
-hg = require("harfang")
+-- hg = require("harfang")
 require("utils")
 
 function CarModelCreate(name, instance_node_name, scene, scene_physics, resources, start_position, start_rotation)
@@ -10,7 +10,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     -- Instance_node is not affected by physics.
     o.instance_node = scene:GetNode(instance_node_name)
     if not o.instance_node:IsValid() then
-        print("ERROR - Instance node not found !")
+        print("!CarModelCreate(): Instance node '" .. instance_node_name .. "' not found!")
         return
     end
     o.instance_node:GetTransform():SetPos(hg.Vec3(0, 0, 0))
@@ -18,14 +18,14 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     o.nodes = o.scene_view:GetNodes(scene)
     o.root_node = o.scene_view:GetNode(scene, "car_body")
     if not o.root_node:IsValid() then
-        print("ERROR - Parent node not found !")
+        print("!CarModelCreate(): Parent node not found !")
         return
     end
     o.root_node:GetTransform():SetPos(o.start_position)
     o.root_node:GetTransform():SetRot(o.start_rotation)
     local thrust_node = o.scene_view:GetNode(scene, "thrust")
     if not thrust_node:IsValid() then
-        print("ERROR - 'thrust' node not found !")
+        print("!CarModelCreate(): 'thrust' node not found !")
         return
     end
     o.thrust_transform = thrust_node:GetTransform()
@@ -33,7 +33,7 @@ function CarModelCreate(name, instance_node_name, scene, scene_physics, resource
     for n = 0, 3 do
         wheel = o.scene_view:GetNode(scene, "wheel_" .. n)
         if not wheel:IsValid() then
-            print("ERROR - Wheel_"..n.." node not found !")
+            print("!CarModelCreate(): Wheel_"..n.." node not found !")
             return
         end
         table.insert(o.wheels, wheel)

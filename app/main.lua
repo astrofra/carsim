@@ -1,4 +1,4 @@
--- HARFANG® 3D - www.harfang3d.com - Raycast Car demo sample
+-- HARFANG® 3D - Car driving simulator prototype
 
 hg = require("harfang")
 require("car")
@@ -16,7 +16,7 @@ function main(visual_debug_physics)
     hg.InputInit()
     hg.WindowSystemInit()
 
-    local res_x, res_y = 1280, 720
+    local res_x, res_y = ResolutionMultiplier(1280, 720, 0.75)
     local win = hg.RenderInit('Raycast car', res_x, res_y, hg.RF_VSync | hg.RF_MSAA4X)
 
     pipeline = hg.CreateForwardPipeline()
@@ -47,7 +47,7 @@ function main(visual_debug_physics)
     local ground_ref = res:AddModel('ground', ground_mdl)
     local prg_ref = hg.LoadPipelineProgramRefFromAssets('core/shader/pbr.hps', res, hg.GetForwardPipelineInfo())
 
-    local mat_ground = CreateMaterialFromProgram(prg_ref, hg.Vec4(22/255, 42/255, 42/255, 1),hg.Vec4(1, 1, 0, 1))
+    local mat_ground = CreateMaterialFromProgram(prg_ref, hg.Vec4(0.25, 0.25, 0.25, 1),hg.Vec4(1, 1, 0, 1))
 
     local cube_node = hg.CreatePhysicCube(scene, hg.Vec3(10,10,10), hg.TransformationMat4(hg.Vec3(0, -2.5, -10),hg.Deg3(30, 0, 10)), cube_ref, {mat_ground}, 0)
     local ground_node = hg.CreatePhysicCube(scene, hg.Vec3(100, 0.01, 100), hg.TranslationMat4(hg.Vec3(0, -0.005, 0)), ground_ref, {mat_ground}, 0)
