@@ -1,4 +1,3 @@
--- hg = require("harfang")
 require("utils")
 
 function CarModelCreate(name, instance_node_name, scene, scene_physics, resources, start_position, start_rotation)
@@ -224,15 +223,18 @@ end
 
 function CarModelControlKeyboard(car_model, scene_physics, kb, dt)
     local dts = hg.time_to_sec_f(dt)
+    local brake, reverse = false, false
 
     if kb:Down(hg.K_Up) then
         CarModelApplyAcceleration(car_model,  car_model.thrust_power * dts, scene_physics)
     end
     if kb:Down(hg.K_Down) then
         CarModelApplyAcceleration(car_model, -car_model.thrust_power * dts, scene_physics)
+        reverse = true
     end
     if kb:Down(hg.K_Space) then
         CarModelApplyBrake(car_model, car_model.brakes_power * dts, scene_physics)
+        brake = true
     end
     if kb:Down(hg.K_Left) then
         CarModelIncreaseSteering(car_model, -car_model.steering_speed * dts)
@@ -243,4 +245,6 @@ function CarModelControlKeyboard(car_model, scene_physics, kb, dt)
     if kb:Pressed(hg.K_Backspace) then
         CarModelReset(car_model, scene_physics)
     end
+
+    return brake, reverse
 end

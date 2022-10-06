@@ -1,8 +1,5 @@
 -- car camera
 
--- hg = require("harfang")
--- require("utils")
-
 function CarCameraCreate(instance_node_name, scene)
     local o = {}
     o.instance_node = scene:GetNode(instance_node_name)

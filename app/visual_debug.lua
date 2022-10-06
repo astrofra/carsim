@@ -1,7 +1,5 @@
 -- Debug user interface
 
--- hg = require("harfang")
-
 function DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics, visual_debug_car_physics, car_mass)
         local dts = hg.time_to_sec_f(dt)
 

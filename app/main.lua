@@ -3,6 +3,7 @@
 hg = require("harfang")
 require("car")
 require("car_camera")
+require("car_lights")
 require("visual_debug")
 require("utils")
 
@@ -61,6 +62,7 @@ function main(visual_debug_physics, visual_debug_car_physics)
     local clocks = hg.SceneClocks()
     local physics = hg.SceneBullet3Physics()
     local car = CarModelCreate("Generic Car", "car", scene, physics, res, hg.Vec3(0, 1.5, 0))
+    local carlights = CarLightsCreate("car", scene)
     physics:SceneCreatePhysicsFromAssets(scene)
 
     -- Car camera
@@ -90,8 +92,11 @@ function main(visual_debug_physics, visual_debug_car_physics)
             DisplayDebugUI(debug_res_x, debug_res_y, dt, visual_debug_physics, visual_debug_car_physics, car.mass)
 
         -- Car updates
-        CarModelControlKeyboard(car, physics, keyboard, dt)
+        local brake, reverse = CarModelControlKeyboard(car, physics, keyboard, dt)
         lines, car_velocity = CarModelUpdate(car, scene, physics, dt, lines, visual_debug_car_physics)
+        CarLightsSetBrake(carlights, brake)
+        CarLightsSetReverse(carlights, reverse)
+        CarLightsUpdate(carlights, scene, dt)
         local current_camera_node = CarCameraUpdate(car_camera, scene, keyboard, dt, car_velocity)
         if current_camera_node == nil then
             scene:SetCurrentCamera(default_camera)
