@@ -53,10 +53,10 @@ function main(visual_debug_physics, visual_debug_car_physics)
     local mat_ground = CreateMaterialFromProgram(prg_ref, hg.Vec4(0.25, 0.25, 0.25, 1),hg.Vec4(1, 1, 0, 1))
 
     local cube_node = hg.CreatePhysicCube(scene, hg.Vec3(10,10,10), hg.TransformationMat4(hg.Vec3(0, -2.5, -10),hg.Deg3(30, 0, 10)), cube_ref, {mat_ground}, 0)
-    local ground_node = hg.CreatePhysicCube(scene, hg.Vec3(100, 0.01, 100), hg.TranslationMat4(hg.Vec3(0, -0.005, 0)), ground_ref, {mat_ground}, 0)
+    -- local ground_node = hg.CreatePhysicCube(scene, hg.Vec3(100, 0.01, 100), hg.TranslationMat4(hg.Vec3(0, -0.005, 0)), ground_ref, {mat_ground}, 0)
 
     cube_node:GetRigidBody():SetType(hg.RBT_Kinematic)
-    ground_node:GetRigidBody():SetType(hg.RBT_Kinematic)
+    -- ground_node:GetRigidBody():SetType(hg.RBT_Kinematic)
 
     -- Scene physics
     local clocks = hg.SceneClocks()
